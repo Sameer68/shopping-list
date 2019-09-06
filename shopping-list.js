@@ -9,7 +9,7 @@ let clearButton = document.getElementById('clear');
 let saveButton = document.getElementById('save');
 let revertButton = document.getElementById('revert');
 
-// We build the DOM by creating a list item for each of our data elements
+// We build the DOM for the shopping list by creating an element for each item
 let renderList = (list) => {
   while (listElement.firstChild) {
     listElement.removeChild(listElement.firstChild);
@@ -19,19 +19,26 @@ let renderList = (list) => {
 
 // Each element in the list contains a span with the item as text and a delete button
 let renderItem = (item, index) => {
+
+  // create the DOM elements <li><span>item</span><button>x</button></li>
   let listItem = document.createElement('li');
   let listText = document.createElement('span');
   let deleteButton = document.createElement('button');
-  listText.textContent = `${item} `;
   deleteButton.textContent = 'x';
-  // This is a closure
+  listText.textContent = `${item} `;
+  listItem.appendChild(listText);
+  listItem.appendChild(deleteButton);
+
+  // This is a closure, the index value is accessed from the enclosing scope
+  // It adds a unique event listener to each button
+  // so each button deletes the correct item
   deleteButton.addEventListener('click', ev => {
     shoppingList.splice(index, 1);
     renderList(shoppingList);
   });
+
+  // Append the new elements to the DOM
   listElement.appendChild(listItem);
-  listItem.appendChild(listText);
-  listItem.appendChild(deleteButton);
 }
 
 // take the value from our input
@@ -51,17 +58,16 @@ let clearList = () => {
 let loadFromStorage = () => {
   shoppingList = localStorage.getItem('shopping-list');
   if(shoppingList) {
-    shoppingList = shoppingList.split(','); // data are saved as a string so need to be split
+    // data are stored as a comma-separated string so need to be split
+    shoppingList = shoppingList.split(',');
   } else {
     shoppingList = [];
   }
   renderList(shoppingList);
 }
 
-// Save our data to local storage
+// Save our data or clear from local storage if the list is empty
 let saveToStorage = () => {
-  console.log(shoppingList.length);
-  console.log(!!shoppingList.length);
   if(shoppingList.length) {
     localStorage.setItem('shopping-list', shoppingList);
   } else {
@@ -69,10 +75,11 @@ let saveToStorage = () => {
   }
 }
 
-
+// event listeners for main buttons
 clearButton.addEventListener('click', clearList);
 submitButton.addEventListener('click', newItem);
 saveButton.addEventListener('click', saveToStorage);
 revertButton.addEventListener('click', loadFromStorage);
 
+// initialise the list by loading in any data from local storage
 loadFromStorage();
