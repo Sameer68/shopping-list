@@ -8,16 +8,23 @@ body {
   background-blend-mode: soft-light;
   font-family: sans-serif;
 }
+
 ul {
   padding: 0;
   margin: 0.5em 0.25em;
 }
+
 ul li {
   list-style: none;
   background: #fff;
+  opacity: 0.75;
+  font-size: 1.2em;
   margin-bottom: 0.1em;
   padding: 0.25em;
+  padding-left: 1em;
   overflow: auto;
+  border: 2px solid #bbb;
+  text-align: left;
 }
 
 ul li button {
@@ -26,8 +33,8 @@ ul li button {
   padding: 0 0.25em;
   color: #000;
   background-color: #fff;
-
 }
+
 ul li button:hover {
   background-color: #000;
   color: #fff;
