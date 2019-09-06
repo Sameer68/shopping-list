@@ -2,7 +2,10 @@ body {
   text-align: center;
   max-width: 500px;
   margin: auto;
-  background: #666;
+  background-color: #eee;
+  background-image: url('shopping.png');
+  background-size: 100%;
+  background-blend-mode: soft-light;
   font-family: sans-serif;
 }
 ul {
