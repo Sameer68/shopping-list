@@ -1,15 +1,36 @@
+body {
+  max-width: 500px;
+  margin: auto;
+  background: #666;
+  font-family: sans-serif;
+}
 ul {
   padding: 0;
 }
 ul li {
   list-style: none;
-  background-color: #eee;
+  background: #fff;
   margin-bottom: 0.1em;
   padding: 0.25em;
   overflow: auto;
 }
 
 ul li button {
-  float: left;
-  margin-right: 1em;
+  float: right;
+  margin-left: 1em;
+  padding: 0 0.25em;
+  color: #000;
+  background-color: #fff;
+
+}
+ul li button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+button {
+  background-color: #000;
+  color: #fff;
+  border-style: none;
+  padding: 0.25em 0.5em;
 }
