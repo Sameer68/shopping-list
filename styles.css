@@ -1,0 +1,15 @@
+ul {
+  padding: 0;
+}
+ul li {
+  list-style: none;
+  background-color: #eee;
+  margin-bottom: 0.1em;
+  padding: 0.25em;
+  overflow: auto;
+}
+
+ul li button {
+  float: left;
+  margin-right: 1em;
+}
