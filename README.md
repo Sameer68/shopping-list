@@ -225,5 +225,6 @@ let loadFromStorage = () => {
 revertButton.addEventListener('click', loadFromStorage);
 ```
 
+## What now?
 Try creating your own css file to change the way the shopping list appears.
 Can you make it look like an actual paper list?
