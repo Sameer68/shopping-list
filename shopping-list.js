@@ -14,8 +14,8 @@ let renderList = (list) => {
   while (listElement.firstChild) {
     listElement.removeChild(listElement.firstChild);
   }
-  list.forEach(renderItem)
-}
+  list.forEach(renderItem);
+};
 
 // Each element in the list contains a span with the item as text and a delete button
 let renderItem = (item, index) => {
@@ -39,20 +39,20 @@ let renderItem = (item, index) => {
 
   // Append the new elements to the DOM
   listElement.appendChild(listItem);
-}
+};
 
 // take the value from our input
 let newItem = (ev) => {
-  shoppingList = shoppingList.concat(itemInput.value.split(',')) // add the new value to the list
+  shoppingList = shoppingList.concat(itemInput.value.split(',')); // add the new value to the list
   itemInput.value = null;            // clear the input ready for another value
   renderList(shoppingList);          // rebuild the DOM from the new list
-}
+};
 
 // clear the list and rebuild the DOM
 let clearList = () => {
   shoppingList = [];
   renderList(shoppingList);
-}
+};
 
 // Get our data from local storage
 let loadFromStorage = () => {
@@ -64,7 +64,7 @@ let loadFromStorage = () => {
     shoppingList = [];
   }
   renderList(shoppingList);
-}
+};
 
 // Save our data or clear from local storage if the list is empty
 let saveToStorage = () => {
@@ -73,7 +73,7 @@ let saveToStorage = () => {
   } else {
     localStorage.removeItem('shopping-list');
   }
-}
+};
 
 // event listeners for main buttons
 clearButton.addEventListener('click', clearList);
