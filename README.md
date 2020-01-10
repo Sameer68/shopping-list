@@ -1,230 +1,370 @@
-# shopping-list
-A simple shopping list app for demonstrating local storage
+# Step by step guide to shopping list example
 
-## A basic HTML template
+## Build a list
 
-Begin with a basic HTML template.
+First we will get a very basic list working so we can add items to our list using javascript code.
+
+We start with a blank template and add a single unordered list element (use an ordered list if you want numbering).
+This element will become our shopping list.
+The list is given the id `shopping` so we can select it by id.
 
 ```html
-
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Local storage</title>
-    <link rel="stylesheet" href="styles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <header>
-      <h1>Shopping list</h1>
-      <label for="new-item">New item</label> <input type="text" id="new-item">
-      <button id="submit">add</button>
-    </header>
-    <ul id="shopping-list"></ul>
-    <footer>
-      <button id="clear">Clear all</button><br><br>
-      <button id="save">Save</button>
-      <button id="revert">Revert</button>
-    </footer>
-    <script src="shopping-list.js"></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping list</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <ul id="shopping"></ul>
+  <script src="js/scripts.js"></script>
+</body>
 </html>
+```
+
+## Adding items
+
+Now in the linked file `js/shopping.js` we can get a handle to the list and write a simple function to add items to the list.
+
+```Javascript
+let listElement = document.getElementById('shopping');
+
+function addItem(item) {
+  let itemElement = document.createElement('li');
+  itemElement.textContent = item;
+  listElement.appendChild(itemElement);
+};
 
 ```
 
-The template has a header, an unordered list and a footer.
+We can add items by calling our function. Try this in the console.
 
-The header contains a label, input and button.
-This is the main input where the shopping list entries will be added.
-
-The unordered list is where the shopping list entries will be displayed.
-In each entry we will include a button to delete an individual entry.
-
-The footer contains three buttons.
-The "clear all" button will clear the list.
-The "Save" and "Revert" buttons will control saving the list to local storage and replacing the list with the contents from local storage in the event of a mistake.
-
-## Javascript
-
-
-For the purposes of this project we are thinking of the problem in two steps.
-First we need code to manage the list in memory as a javascript array, then we need to manage the list in local storage.
-
-### A javascript array
-
-Our shopping list will be stored in a simple javascript array of strings.
-We can declare this up front to make sure it is available as an empty list.
-
-```javascript
-// our data
-let shoppingList;
+```Javascript
+addItem('rice');
+addItem('pasta');
 ```
 
-We also need to access a few of the DOM elements in our code so we will define some variables here.
+We can also add multiple items from an array using `Array.forEach`.
 
-```javascript
-
-// Get some references to the DOM
-let listElement = document.getElementById('shopping-list');
-let itemInput = document.getElementById('new-item');
-let submitButton = document.getElementById('submit');
-let clearButton = document.getElementById('clear');
-let saveButton = document.getElementById('save');
-let revertButton = document.getElementById('revert');
+```Javascript
+let list = ['rice', 'pasta', 'tea', 'coffee'];
+list.forEach(item => {
+  addItem(item);
+});
 ```
 
+## Clearing the list
 
-#### Rendering the list
+We need a function to clear the entire list.
+We could do this by replacing the content of the list element with an empty string.
 
-In order to render the list within the DOM we define the function `renderList`.
+```Javascript
+function clearList() {
+  listElement.innerHTML = "";
+}
+```
 
-```javascript
+However, its more efficient to loop over the DOM and remove each element in turn.
 
-// We build the DOM for the shopping list by creating an element for each item
-let renderList = (list) => {
-  while (listElement.firstChild) {
+```Javascript
+function clearList() {
+  while(listElement.firstChild) {
     listElement.removeChild(listElement.firstChild);
   }
-  list.forEach(renderItem)
 }
-
 ```
 
-This function clears any child nodes from the DOM `listElement` and then calls `Array.prototype.forEach` on our array and passes another function `renderItem` as a callback. This function will be called once for each element in our array.
+Calling this function in the console now clears the list as expected.
 
-The `renderItem` function is where all the work is done.
-It receives the array item (a string) and an index as inputs.
+Finally, tidy up the whole lot by wrapping the list generation code in a reusable function.
 
-```javascript
-// Each element in the list contains a span with the item as text and a delete button
-let renderItem = (item, index) => {
+```Javascript
+function renderList(list) {
+  list.forEach(item => {
+    addItem(item);
+  });
+}
+```
 
-  // create the DOM elements <li><span>item</span><button>x</button></li>
-  let listItem = document.createElement('li');
-  let listText = document.createElement('span');
+We will use this later to load data from local storage.
+
+In your javascript file you should now have one variable declaration (`listElement`) and three functions (`addItem()`, `clearList()` and `renderList()`).
+
+## Add some interaction
+
+Now we have the tools to add items and clear the list, we need to build a simple user interface.
+
+Add header and a footer elements before and after the list element.
+In the header element we add an input element in which we can enter new items and a button which will be used to add the new item to the list.
+The input has a placeholder and id, the button has an id and contains the text 'add'.
+
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping list</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Shopping list</h1>
+    <input placeholder="new item" id="new-item">
+    <button id="add">add</button>
+  </header>
+  <ul id="shopping"></ul>
+  <footer>
+    <button id="clear">clear</button>
+  </footer>
+  <script src="js/scripts.js"></script>
+</body>
+</html>
+```
+
+We need to create JavaScript handles to our buttons. Add these lines to the top of the file.
+
+```Javascript
+let addButton = document.getElementById('add');
+let clearButton = document.getElementById('clear');
+```
+
+Now we can insert new elements in our list by adding an event listener to our 'add' button.
+
+Our first version of the event listener can be added at the bottom of the file.
+
+```Javascript
+addButton.addEventListener('click', ev => {
+  let InputElement = document.getElementById('new-item');
+  addItem(InputElement.value);
+})
+```
+
+Type some text into the input and click the add button. This works pretty well but it has some problems.
+
+- What happens when the input is blank?
+- What happens when we click the add button more than once?
+
+We need to add a few lines of code to smooth out this interaction.
+
+First, we check that the input has some text and only add the item if it does.
+
+```Javascript
+addButton.addEventListener('click', ev => {
+  let InputElement = document.getElementById('new-item');
+  if(InputElement.value) { //<- this
+    addItem(InputElement.value);
+  } //<- and this
+})
+```
+
+Try it. No more blank entries in our list. Great. But we still add the same value multiple times when we click the button more than once.
+
+So we clear the input by setting its value to `null` each time an item is successfully added to the list.
+
+```Javascript
+addButton.addEventListener('click', ev => {
+  let InputElement = document.getElementById('new-item');
+  if(InputElement.value) {
+    addItem(InputElement.value);
+    InputElement.value = null; //<- this
+  }
+})
+```
+
+To clear the whole list we add an event listener to the clear button.
+
+```Javascript
+clearButton.addEventListener('click', ev => {
+  clearList();
+});
+```
+
+## Removing individual items
+
+The list is becoming useful but what if we make a mistake and want to remove an item from the list without starting from scratch?
+
+We need a way to select an individual item for removal. For this, we need a button on each item. So we need to modify our `addItem` function.
+
+```Javascript
+function addItem(item) {
+  let itemElement = document.createElement('li');
+  itemElement.textContent = item;
   let deleteButton = document.createElement('button');
   deleteButton.textContent = 'x';
-  listText.textContent = `${item} `;
-  listItem.appendChild(listText);
-  listItem.appendChild(deleteButton);
+  itemElement.appendChild(deleteButton);
+  listElement.appendChild(itemElement);
+};
+```
 
-  // This is a closure, the index value is accessed from the enclosing scope
-  // It adds a unique event listener to each button
-  // so each button deletes the correct item
+We have created a new button for each element and appended it to the list item.
+When we add new items, they now also contain a button.
+
+We need this new button to delete the entire element. For this we use a closure.
+We add an event listener to each button which removes the parent element from the list.
+
+```Javascript
+function addItem(item) {
+  let itemElement = document.createElement('li');
+  itemElement.textContent = item;
+  let deleteButton = document.createElement('button');
+  deleteButton.textContent = 'x';
+  itemElement.appendChild(deleteButton);
   deleteButton.addEventListener('click', ev => {
-    shoppingList.splice(index, 1);
-    renderList(shoppingList);
+    listElement.removeChild(itemElement);
   });
-
-  // Append the new elements to the DOM
-  listElement.appendChild(listItem);
-}
-
+  listElement.appendChild(itemElement);
+};
 ```
 
-It begins by creating the necessary DOM elements, an `li` to contain the entry, a `span` for the item text and a `button` for deleting the item from the list.
+## Saving the list
 
-We add an `'x'` as the button text, the list entry itself as the span text and we compose these elements into the list item.
+We now have a fairly functional shopping list app. The only problem is that if we close the page or reload it the list data is lost and we begin with a blank list each time.
 
-Then we do something a bit funky.
-We add an event listener to the `deleteButton` 'click' event which removes the `shoppingList` item at the given index (using the `Array.prototype.splice` method) and calls `renderList` again to rebuild the list from scratch.
+We will load the list from local storage on opening the page and save the list back to local storage on closing the page.
 
-Finally, we add the newly created `listItem` into the `listElement` in the DOM.
-So each item in the `shoppingList` array is rendered as something like this.
+First, we need to save the list to local storage.
+We do this in an event listener we add to the window event handler [`onbeforeunload`][onbeforeunload] event.
+This even will fire when the window is about to unload its resources in preparation to close the page.
 
-```HTML
-<li><span>item text</span><button>x</button></li>`
-```
-With an event listener on the button click event which will remove the item from our array and rebuild the list.
-
-#### Adding items to the list
-
-Adding items to the list is relatively simple.
-
-```javascript
-// take the value from our input
-let newItem = (ev) => {
-  shoppingList = shoppingList.concat(itemInput.value.split(',')) // add the new value to the list
-  itemInput.value = null;            // clear the input ready for another value
-  renderList(shoppingList);          // rebuild the DOM from the new list
-}
-
-submitButton.addEventListener('click', newItem);
-```
-
-The `newItem` function is set as an event listener on the `submitButton` element.
-When `submitButton` is clicked we take the contents of the `itemInput` element and call `String.prototype.split` on it to divide up any comma-separated values.
-This creates an array of strings.
-We then call `Array.prototype.concat` to concatenate this new array onto the end of the existing list.
-We tidy up by clearing the contents of the input and then call `renderList` to rebuild our list against the newly extended array.
-
-
-#### Clearing the list
-
-We have seen how the `deleteButton` event listener handles deleting individual items.
-Clearing the entire list is easy, we simply set the `shoppingList` variable to a blank array and call our familiar `renderList` function.
-
-```javascript
-// clear the list and rebuild the DOM
-let clearList = () => {
-  shoppingList = [];
-  renderList(shoppingList);
-}
-
-clearButton.addEventListener('click', clearList);
-```
-
-### Local Storage
-
-OK, so now we can finally start working with the local storage API.
-We do this by defining two functions, `saveToStorage` and `loadFromStorage`.
-
-#### Saving to local storage
-
-We can save the list to local storage by calling the `localStorage.setItem` method.
-
-```javascript
-
-// Save our data or clear from local storage if the list is empty
-let saveToStorage = () => {
-  if(shoppingList.length) {
-    localStorage.setItem('shopping-list', shoppingList);
+```Javascript
+window.addEventListener('beforeunload', ev => {
+  let items = [...listElement.childNodes];
+  if(items.length) {
+    let list = items.map(item => {
+      return item.textContent.slice(0, -1);
+    });
+    localStorage.setItem('shopping-list', list);
   } else {
     localStorage.removeItem('shopping-list');
   }
-}
+});
 
-saveButton.addEventListener('click', saveToStorage);
 ```
 
-When saving to local storage the list is converted into a JSON string.
-Note that if the list is empty, we have chosen to simply remove the `'shopping-list'` key using the `localStorage.removeItem` method.
-This avoids us placing an empty string into local storage and keeps the loading code simple.
+Here we are extracting our item data from the DOM.
 
-#### Loading from local storage
+First, we convert the list child nodes to an array using the spread operator. Then we check the length of the array. If the array is empty then we delete our local storage record.
 
-To load from storage we need to split the string back into an array of strings.
-We do this as above using the `String.prototype.split` method.
-If the stored key is empty then we can easily detect this and simply return an empty list.
+If the list contains data then we extract the item text into an array using the [Array.prototype.map][Array.prototype.map] function. We call [Node.textContent][textContent] and [String.prototype.slice][String.prototype.slice] on each list element within the callback.
 
-```javascript
+Our item text is contained within each list item element along with a delete button. Note that [Node.textContent][textContent] returns the concatenation of the [textContent][textContent] of every child node. So we get an extra 'x' from the delete button concatenated to the end of our string. We remove this with [String.prototype.slice][String.prototype.slice].
 
-// Get our data from local storage
-let loadFromStorage = () => {
-  shoppingList = localStorage.getItem('shopping-list');
+## Loading the list
+
+With the list data from previous session stored in local storage we now just need to read these data back into the page when the page loads.
+
+For this, we add an event listener to the window event handler [DOMContentLoaded][DOMContentLoaded] event. This event fires once the DOM is completely loaded so we can be sure the list element will be available.
+
+```Javascript
+window.addEventListener('DOMContentLoaded', ev => {
+  let shoppingList = localStorage.getItem('shopping-list');
   if(shoppingList) {
-    // data are stored as a comma-separated string so need to be split
-    shoppingList = shoppingList.split(',');
-  } else {
-    shoppingList = [];
+    renderList(shoppingList.split(','));
   }
-  renderList(shoppingList);
-}
-
-revertButton.addEventListener('click', loadFromStorage);
+});
 ```
 
-## What now?
-Try creating your own css file to change the way the shopping list appears.
-Can you make it look like an actual paper list?
+We extract the data from local storage as a comma-separated string. To convert this to an array we use the [String.prototype.split][String.prototype.split] method and pass the resultant array into our `renderList()` function.
+
+Now the list will be remembered even if we close the page and open it again.
+
+## Upgrade the interface
+
+The list is nice and all but if you want to write a long list then you have to flip between using the keyboard to type and using the mouse to click. This is annoying and inefficient.
+
+The following code adds a handler for the input element `keyup` event. The `keyup` event fires when a key is released.
+
+```Javascript
+document.getElementById('new-item').addEventListener("keyup", ev => {
+  if (ev.keyCode === 13) {
+    addButton.click();
+  }
+});
+```
+
+The handler is very simple. If the enter key (keyCode 13) is being released then we call `addButton.click()` to trigger the previously defined event handler for adding an item.
+
+So now it is possible to add multiple items to the list without leaving the keyboard.
+
+Another potential improvement is to allow comma-separated values to be entered into the input and separated out into items on the list.
+
+To do this we can adjust the `addButton` event listener.
+
+```Javascript
+addButton.addEventListener('click', ev => {
+  let InputElement = document.getElementById('new-item');
+  if(InputElement.value) {
+    InputElement.value.split(',').forEach(v => {
+      addItem(v);
+    });
+    InputElement.value = null;
+  }
+});
+```
+
+Now the input value is split into an array of strings and each string is added to the list individually. Try this by entering multiple items separated by commas.
+
+## Tidy up
+
+Now we have a working system we will protect all our code inside a self-executing anonymous function.
+
+```Javascript
+(() => {
+  // all existing code goes here
+})()
+```
+
+This keeps all our variables cleanly outside of the global scope.
+
+## Challenges
+
+The shopping list app is now fairly functional. However, there are a few scenarios where it could be frustrating to work with and a few possible improvements.
+
+### Multiple tabs
+
+Think about what happens when the app is opened in two tabs simultaneously.
+
+Try this:
+
+1. Open the shopping list in a browser tab and add a few items
+
+2. Open the shopping list in another tab, add a few more items and close the list.
+
+3. Close the original tab.
+
+4. Open the shopping list again.
+
+What happened to your latest additions?
+
+Try to implement an improvement to avoid this problem.
+
+potential solutions:
+ - allow a manual load/save option?
+ - warn the user before editing the local storage?
+ - work with the `storage` event?
+
+
+### Multiple lists
+
+If you have got this far then well done. This one is for experts only as it requires some fairly serious adaptations to the code. Though perhaps not as much as you might think.
+
+Our list data are stored under the 'shopping-list' key in local storage.
+
+Think about how you might allow for multiple shopping lists to be stored and managed.
+
+What user interface changes would be required?
+
+Try refactoring the code to allow the user to create and manage multiple named lists.
+
+[Array.prototype.map]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map "Array.prototype.map - MDN"
+
+[String.prototype.split]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split "String.prototype.split - MDN"
+[String.prototype.slice]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice "String.prototype.slice - MDN"
+
+[textContent]: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent "Node.textContent - MDN"
+[onbeforeunload]: https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload "beforeunload event - MDN"
+[DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event "DOMContentLoaded event - MDN"
