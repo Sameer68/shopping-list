@@ -32,7 +32,7 @@ Now in the linked file `js/shopping.js` we can get a handle to the list and writ
 const listElement = document.getElementById('shopping');
 
 function addItem(item) {
-  let itemElement = document.createElement('li');
+  const itemElement = document.createElement('li');
   itemElement.textContent = item;
   listElement.appendChild(itemElement);
 };
@@ -49,7 +49,7 @@ addItem('pasta');
 We can also add multiple items from an array using `Array.forEach`.
 
 ```Javascript
-let list = ['rice', 'pasta', 'tea', 'coffee'];
+const list = ['rice', 'pasta', 'tea', 'coffee'];
 list.forEach(item => {
   addItem(item);
 });
@@ -208,9 +208,9 @@ We add an event listener to each button which removes the parent element from th
 
 ```Javascript
 function addItem(item) {
-  let itemElement = document.createElement('li');
+  const itemElement = document.createElement('li');
   itemElement.textContent = item;
-  let deleteButton = document.createElement('button');
+  const deleteButton = document.createElement('button');
   deleteButton.textContent = 'x';
   itemElement.appendChild(deleteButton);
   deleteButton.addEventListener('click', ev => {
@@ -232,9 +232,9 @@ This even will fire when the window is about to unload its resources in preparat
 
 ```Javascript
 window.addEventListener('beforeunload', ev => {
-  let items = [...listElement.childNodes];
+  const items = [...listElement.childNodes];
   if(items.length) {
-    let list = items.map(item => {
+    const list = items.map(item => {
       return item.textContent.slice(0, -1);
     });
     localStorage.setItem('shopping-list', list);
@@ -261,7 +261,7 @@ For this, we add an event listener to the window event handler [DOMContentLoaded
 
 ```Javascript
 window.addEventListener('DOMContentLoaded', ev => {
-  let shoppingList = localStorage.getItem('shopping-list');
+  const shoppingList = localStorage.getItem('shopping-list');
   if(shoppingList) {
     renderList(shoppingList.split(','));
   }
@@ -296,7 +296,7 @@ To do this we can adjust the `addButton` event listener.
 
 ```Javascript
 addButton.addEventListener('click', ev => {
-  let InputElement = document.getElementById('new-item');
+  const InputElement = document.getElementById('new-item');
   if(InputElement.value) {
     InputElement.value.split(',').forEach(v => {
       addItem(v);
