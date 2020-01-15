@@ -29,7 +29,7 @@ The list is given the id `shopping` so we can select it by id.
 Now in the linked file `js/shopping.js` we can get a handle to the list and write a simple function to add items to the list.
 
 ```Javascript
-let listElement = document.getElementById('shopping');
+const listElement = document.getElementById('shopping');
 
 function addItem(item) {
   let itemElement = document.createElement('li');
@@ -128,8 +128,8 @@ The input has a placeholder and id, the add button has an id and contains the te
 We need to create JavaScript handles to our buttons. Add these lines to the top of the file.
 
 ```Javascript
-let addButton = document.getElementById('add');
-let clearButton = document.getElementById('clear');
+const addButton = document.getElementById('add');
+const clearButton = document.getElementById('clear');
 ```
 
 Now we can insert new elements in our list by adding an event listener to our 'add' button.
@@ -138,7 +138,7 @@ Our first version of the event listener can be added at the bottom of the file.
 
 ```Javascript
 addButton.addEventListener('click', ev => {
-  let InputElement = document.getElementById('new-item');
+  const InputElement = document.getElementById('new-item');
   addItem(InputElement.value);
 })
 ```
@@ -154,7 +154,7 @@ First, we check that the input has some text and only add the item if it does.
 
 ```Javascript
 addButton.addEventListener('click', ev => {
-  let InputElement = document.getElementById('new-item');
+  const InputElement = document.getElementById('new-item');
   if(InputElement.value) { //<- this
     addItem(InputElement.value);
   } //<- and this
@@ -167,7 +167,7 @@ So we clear the input by setting its value to `null` each time an item is succes
 
 ```Javascript
 addButton.addEventListener('click', ev => {
-  let InputElement = document.getElementById('new-item');
+  const InputElement = document.getElementById('new-item');
   if(InputElement.value) {
     addItem(InputElement.value);
     InputElement.value = null; //<- this
@@ -191,9 +191,9 @@ We need a way to select an individual item for removal. For this, we need a butt
 
 ```Javascript
 function addItem(item) {
-  let itemElement = document.createElement('li');
+  const itemElement = document.createElement('li');
   itemElement.textContent = item;
-  let deleteButton = document.createElement('button');
+  const deleteButton = document.createElement('button');
   deleteButton.textContent = 'x';
   itemElement.appendChild(deleteButton);
   listElement.appendChild(itemElement);
