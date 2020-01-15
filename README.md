@@ -95,11 +95,9 @@ In your javascript file you should now have one variable declaration (`listEleme
 ## Add some interaction
 
 Now we have the tools to add items and clear the list, we need to build a simple user interface.
-
 Add header and a footer elements before and after the list element.
-In the header element we add an input element in which we can enter new items and a button which will be used to add the new item to the list.
-The input has a placeholder and id, the button has an id and contains the text 'add'.
 
+In the header element add an input element and a button, in the footer element add a clear button as shown below.
 
 ```html
 <!doctype html>
@@ -124,6 +122,8 @@ The input has a placeholder and id, the button has an id and contains the text '
 </body>
 </html>
 ```
+
+The input has a placeholder and id, the add button has an id and contains the text 'add'. The clear button has an id and contains the text 'clear'.
 
 We need to create JavaScript handles to our buttons. Add these lines to the top of the file.
 
