@@ -35,7 +35,9 @@
     const InputElement = document.getElementById('new-item');
     if(InputElement.value) {
       InputElement.value.split(',').forEach(v => {
-        addItem(v);
+        if(v) {
+          addItem(v);
+        }
       });
       InputElement.value = null;
     }

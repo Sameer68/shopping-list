@@ -306,14 +306,16 @@ addButton.addEventListener('click', ev => {
   const InputElement = document.getElementById('new-item');
   if(InputElement.value) {
     InputElement.value.split(',').forEach(v => {
-      addItem(v);
+      if(v) {
+        addItem(v);        
+      }
     });
     InputElement.value = null;
   }
 });
 ```
 
-Now the input value is split into an array of strings and each string is added to the list individually. Try this by entering multiple items separated by commas.
+Now the input value is split into an array of strings and each string is added to the list individually (but only if it contains text). Try this by entering multiple items separated by commas.
 
 ## Tidy up
 
