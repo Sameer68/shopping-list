@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Kalam&display=swap');
 
-::placeholder, button, ul, body {
+::placeholder, input, button, ul, body {
   font-family: 'Kalam', cursive;
 }
 
-header {
-  font-size: 1.5em;
-}
 
 body {
   text-align: center;
@@ -14,7 +11,10 @@ body {
   margin: auto;
   background-color: #990;
   color: white;
-  background-position: center;
+}
+
+header, header input {
+  font-size: 1.5em;
 }
 
 h1 {
@@ -24,18 +24,22 @@ h1 {
 ul {
   font-family: 'Kalam', cursive;
   padding: 0;
-  margin: 0.5em 0.25em;
+  /* margin: 0.5em 0.25em; */
   color: black;
   background-image: url('paper.jpg');
   background-size: cover;
 
 }
 
+input, ul li {
+  border: none;
+  height: 40px;
+}
+
 ul li {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  height: 40px;
   list-style: none;
   border-bottom: 1px dashed #aaa;
   padding-left: 1em;
@@ -45,24 +49,25 @@ ul li {
   box-sizing: border-box;
 }
 
-ul li button {
-  color: #000;
-  background-color: rgba(0,0,0,0.15);
-  border: none;
-  width: 40px;
-}
-
-ul li button:hover {
-  background-color: rgba(0,0,0,0.2);
-  color: #fff;
-}
-
 button {
-  background-color: #000;
+  background-color: rgba(0,0,0,0.15);
   color: #fff;
   border: solid 1px white;
   padding: 0.25em 0.5em;
 }
+
+button:hover {
+  background-color: rgba(0,0,0,0.2);
+  color: #fff;
+}
+
+ul li button {
+  color: #000;
+  border: none;
+  width: 40px;
+}
+
+
 
 
 @media screen and (min-width: 900px) {
