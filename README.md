@@ -4,8 +4,8 @@
 
 First we will get a very basic list working so we can add items to our list using javascript code.
 
-We start with a blank template and add a single unordered list element (use an ordered list if you want numbering).
-This element will become our shopping list.
+We start with a blank template and add a simple header and a single unordered list element (use an ordered list if you want numbering).
+This list element will become our shopping list.
 The list is given the id `shopping` so we can select it by id.
 
 ```html
@@ -18,6 +18,9 @@ The list is given the id `shopping` so we can select it by id.
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <header>
+    <h1>Shopping list</h1>
+  </header>
   <ul id="shopping"></ul>
   <script src="js/scripts.js"></script>
 </body>
@@ -95,8 +98,8 @@ In your javascript file you should now have one variable declaration (`listEleme
 ## Add some interaction
 
 Now we have the tools to add items and clear the list, we need to build a simple user interface.
-Add header and a footer elements before and after the list element.
 
+Wrap the list in a `main` element and add a header and footer above and below the list respectively.
 In the header element add an input element and a button, in the footer element add a clear button as shown below.
 
 ```html
@@ -111,13 +114,17 @@ In the header element add an input element and a button, in the footer element a
 <body>
   <header>
     <h1>Shopping list</h1>
-    <input placeholder="new item" id="new-item">
-    <button id="add">add</button>
   </header>
-  <ul id="shopping"></ul>
-  <footer>
-    <button id="clear">clear</button>
-  </footer>
+  <main>
+    <header>
+      <input placeholder="new item" id="new-item">
+      <button id="add">add</button>
+    </header>
+    <ul id="shopping"></ul>
+    <footer>
+      <button id="clear">clear</button>
+    </footer>
+  </main>
   <script src="js/scripts.js"></script>
 </body>
 </html>
