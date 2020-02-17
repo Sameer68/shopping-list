@@ -160,7 +160,7 @@ Our first version of the event listener can be added at the bottom of the file.
 ```Javascript
 addBtn.addEventListener('click', ev => {
   addItem(newItem.value);
-})
+});
 ```
 
 Type some text into the input and click the add button. This works pretty well but it has some problems.
@@ -177,7 +177,7 @@ addBtn.addEventListener('click', ev => {
   if(newItem.value) { //<- this
     addItem(newItem.value);
   } //<- and this
-})
+});
 ```
 
 Try it. No more blank entries in our list. Great. But we still add the same value multiple times when we click the button more than once.
@@ -190,7 +190,7 @@ addBtn.addEventListener('click', ev => {
     addItem(newItem.value);
     newItem.value = null; //<- this
   }
-})
+});
 ```
 
 To clear the whole list we add an event listener to the clear button.
@@ -298,7 +298,7 @@ window.addEventListener('beforeunload', ev => {
 
 Here we are extracting our item data from the DOM.
 
-First, we convert the list child nodes to an array using the spread operator. Then we check the length of the array. If the array is empty then we delete our local storage record.
+First, we convert the list child nodes to an array using the [spread operator](spread). Then we check the length of the array. If the array is empty then we delete our local storage record.
 
 If the list contains data then we extract the item text into an array using the [Array.prototype.map][Array.prototype.map] function. We call [Node.textContent][textContent] and [String.prototype.slice][String.prototype.slice] on each list element within the callback.
 
@@ -330,7 +330,7 @@ The list is nice and all but if you want to write a long list then you have to f
 The following code adds a handler for the input element `keyup` event. The `keyup` event fires when a key is released.
 
 ```Javascript
-document.getElementById('new-item').addEventListener("keyup", ev => {
+newItem.addEventListener("keyup", ev => {
   if (ev.keyCode === 13) {
     addBtn.click();
   }
@@ -347,15 +347,12 @@ To do this we can adjust the `addBtn` event listener.
 
 ```Javascript
 addBtn.addEventListener('click', ev => {
-  const newItem = document.getElementById('new-item');
-  if(newItem.value) {
-    newItem.value.split(',').forEach(v => {
-      if(v) {
-        addItem(v);        
-      }
-    });
-    newItem.value = null;
-  }
+  newItem.value.split(',').forEach(v => {
+    if(v) {
+      addItem(v);
+    }
+  });
+  newItem.value = null;
 });
 ```
 
@@ -431,3 +428,4 @@ Try refactoring the code to allow the user to create and manage multiple named l
 [while] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while "while - MDN"
 [firstChild] https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild "Node.firstChild - MDN"
 [removeChild] https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild "Node.removeChild - MDN"
+[spread] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax "spread syntax - MDN"
