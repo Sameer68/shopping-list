@@ -161,7 +161,7 @@ const addBtn = document.getElementById('addBtn');
 const clearBtn = document.getElementById('clearBtn');
 ```
 
-Now we can add a simple event listener to our 'add' button to insert a new element into our list based on the input value.
+Now we can add a simple event listener (using [`addEventListener`][addEventListener]) to our 'add' button to insert a new element into our list based on the input value.
 
 Our first version of the event listener can be added at the bottom of the file.
 
@@ -419,6 +419,8 @@ Think about how you might allow for multiple shopping lists to be stored and man
 What user interface changes would be required?
 
 Try refactoring the code to allow the user to create and manage multiple named lists.
+
+[addEventListener]: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener "AddEventListener - MDN"
 
 [Array.prototype.map]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map "Array.prototype.map - MDN"
 
