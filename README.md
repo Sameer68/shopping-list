@@ -4,7 +4,7 @@
 
 First we will get a very basic list working so we can add items to our list using javascript code.
 
-We start with a blank template and add a simple header and a single [unordered list element](ul) (use an ordered list if you want numbering).
+We start with a blank template and add a simple header and a single [unordered list element](ulElement) (use an ordered list if you want numbering).
 This list element will become our shopping list.
 The list is given the id `shopping` so we can select it by id.
 
@@ -424,7 +424,7 @@ Try refactoring the code to allow the user to create and manage multiple named l
 
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event "DOMContentLoaded event - MDN"
 
-[ul]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul "The unordered list element - MDN"
+[ulElement]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul "The unordered list element - MDN"
 
 [li]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li "The list item element - MDN"
 
