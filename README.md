@@ -4,7 +4,7 @@
 
 First we will get a very basic list working so we can add items to our list using javascript code.
 
-We start with a blank template and add a simple header and a single [unordered list element](ulElement) (use an ordered list if you want numbering).
+We start with a blank template and add a simple header and a single [unordered list element][ulElement] (use an ordered list if you want numbering).
 This list element will become our shopping list.
 The list is given the id `shopping` so we can select it by id.
 
@@ -42,8 +42,8 @@ function addItem(item) {
 
 ```
 
-The function uses [`document.createElement`](createElement) to create an [`li`](li) element.
-It places text in the element using [`node.textContent`](textContent) and finally inserts our new element into the DOM using [`node.appendChild`](appendChild).
+The function uses [`document.createElement`][createElement] to create an [`li`][li] element.
+It places text in the element using [`node.textContent`][textContent] and finally inserts our new element into the DOM using [`node.appendChild`][appendChild].
 
 We can now add items by calling our function. Try this in the console.
 
@@ -52,7 +52,7 @@ addItem('rice');
 addItem('pasta');
 ```
 
-We can also add multiple items from an array using [`Array.prototype.forEach`](forEach).
+We can also add multiple items from an array using [`Array.prototype.forEach`][forEach].
 
 ```Javascript
 const list = ['rice', 'pasta', 'tea', 'coffee'];
@@ -82,7 +82,7 @@ function clearList() {
 }
 ```
 
-Using a [`while` loop](while) we call [`Node.firstChild`](firstChild) to identify the next element and [`Node.removeChild`](removeChild) to remove each element in turn.
+Using a [`while` loop][while] we call [`Node.firstChild`][firstChild] to identify the next element and [`Node.removeChild`][removeChild] to remove each element in turn.
 
 Calling this function in the console now clears the list as expected.
 
@@ -298,7 +298,7 @@ window.addEventListener('beforeunload', ev => {
 
 Here we are extracting our item data from the DOM.
 
-First, we convert the list child nodes to an array using the [spread operator](spread). Then we check the length of the array. If the array is empty then we delete our local storage record.
+First, we convert the list child nodes to an array using the [spread operator][spread]. Then we check the length of the array. If the array is empty then we delete our local storage record.
 
 If the list contains data then we extract the item text into an array using the [Array.prototype.map][Array.prototype.map] function. We call [Node.textContent][textContent] and [String.prototype.slice][String.prototype.slice] on each list element within the callback.
 
