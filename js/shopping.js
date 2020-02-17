@@ -1,7 +1,8 @@
 (() => {
   const listElement = document.getElementById('shopping');
-  const addButton = document.getElementById('add');
-  const clearButton = document.getElementById('clear');
+  const newInput = document.getElementById('newItem');
+  const addBtn = document.getElementById('addBtn');
+  const clearBtn = document.getElementById('clearBtn');
 
   // Add an item to the list
   function addItem(item) {
@@ -31,27 +32,26 @@
   }
 
   // Add button
-  addButton.addEventListener('click', ev => {
-    const InputElement = document.getElementById('new-item');
-    if(InputElement.value) {
-      InputElement.value.split(',').forEach(v => {
+  addBtn.addEventListener('click', ev => {
+    if(newInput.value) {
+      newInput.value.split(',').forEach(v => {
         if(v) {
           addItem(v);
         }
       });
-      InputElement.value = null;
+      newInput.value = null;
     }
   });
 
   // submit on enter
-  document.getElementById('new-item').addEventListener("keyup", ev => {
+  newInput.addEventListener("keyup", ev => {
     if (ev.keyCode === 13) {
-      addButton.click();
+      addBtn.click();
     }
   });
 
   // Clear button
-  clearButton.addEventListener('click', ev => {
+  clearBtn.addEventListener('click', ev => {
     clearList();
   });
 

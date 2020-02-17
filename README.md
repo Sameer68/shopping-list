@@ -4,7 +4,7 @@
 
 First we will get a very basic list working so we can add items to our list using javascript code.
 
-We start with a blank template and add a simple header and a single unordered list element (use an ordered list if you want numbering).
+We start with a blank template and add a simple header and a single [unordered list element](ul) (use an ordered list if you want numbering).
 This list element will become our shopping list.
 The list is given the id `shopping` so we can select it by id.
 
@@ -22,7 +22,7 @@ The list is given the id `shopping` so we can select it by id.
     <h1>Shopping list</h1>
   </header>
   <ul id="shopping"></ul>
-  <script src="js/scripts.js"></script>
+  <script src="js/shopping.js"></script>
 </body>
 </html>
 ```
@@ -42,14 +42,17 @@ function addItem(item) {
 
 ```
 
-We can add items by calling our function. Try this in the console.
+The function uses [`document.createElement`](createElement) to create an [`li`](li) element.
+It places text in the element using [`node.textContent`](textContent) and finally inserts our new element into the DOM using [`node.appendChild`](appendChild).
+
+We can now add items by calling our function. Try this in the console.
 
 ```Javascript
 addItem('rice');
 addItem('pasta');
 ```
 
-We can also add multiple items from an array using `Array.forEach`.
+We can also add multiple items from an array using [`Array.prototype.forEach`](forEach).
 
 ```Javascript
 const list = ['rice', 'pasta', 'tea', 'coffee'];
@@ -79,6 +82,8 @@ function clearList() {
 }
 ```
 
+Using a [`while` loop](while) we call [`Node.firstChild`](firstChild) to identify the next element and ['Node.removeChild'](removeChild) to remove each element in turn.
+
 Calling this function in the console now clears the list as expected.
 
 Finally, tidy up the whole lot by wrapping the list generation code in a reusable function.
@@ -99,8 +104,21 @@ In your javascript file you should now have one variable declaration (`listEleme
 
 Now we have the tools to add items and clear the list, we need to build a simple user interface.
 
-Wrap the list in a `main` element and add a header and footer above and below the list respectively.
-In the header element add an input element and a button, in the footer element add a clear button as shown below.
+Above the list, add an input element with `id="newItem"` and placeholder "new item" and a button with `id="addBtn"` and "add" as the content.
+
+```html
+<input placeholder="new item" id="newItem">
+<button id="addBtn">add</button>
+```
+
+Below the list, add a button with `id="clearBtn"` and "clear" as the content.
+
+```html
+<button id="clearBtn">clear</button>
+```
+
+Wrap the list and these new elements in a `main` element.
+Your `index.html` file should now look like this.
 
 ```html
 <!doctype html>
@@ -116,37 +134,32 @@ In the header element add an input element and a button, in the footer element a
     <h1>Shopping list</h1>
   </header>
   <main>
-    <header>
-      <input placeholder="new item" id="new-item">
-      <button id="add">add</button>
-    </header>
+    <input placeholder="new item" id="newItem">
+    <button id="addBtn">add</button>
     <ul id="shopping"></ul>
-    <footer>
-      <button id="clear">clear</button>
-    </footer>
+    <button id="clearBtn">clear</button>
   </main>
-  <script src="js/scripts.js"></script>
+  <script src="js/shopping.js"></script>
 </body>
 </html>
 ```
 
-The input has a placeholder and id, the add button has an id and contains the text 'add'. The clear button has an id and contains the text 'clear'.
-
-We need to create JavaScript handles to our buttons. Add these lines to the top of the file.
+We need to create JavaScript handles to our new elements.
+Add these new lines to the top of the file.
 
 ```Javascript
-const addButton = document.getElementById('add');
-const clearButton = document.getElementById('clear');
+const newItem = document.getElementById('newItem');
+const addBtn = document.getElementById('addBtn');
+const clearBtn = document.getElementById('clearBtn');
 ```
 
-Now we can insert new elements in our list by adding an event listener to our 'add' button.
+Now we can add a simple event listener to our 'add' button to insert a new element into our list based on the input value.
 
 Our first version of the event listener can be added at the bottom of the file.
 
 ```Javascript
-addButton.addEventListener('click', ev => {
-  const InputElement = document.getElementById('new-item');
-  addItem(InputElement.value);
+addBtn.addEventListener('click', ev => {
+  addItem(newItem.value);
 })
 ```
 
@@ -160,10 +173,9 @@ We need to add a few lines of code to smooth out this interaction.
 First, we check that the input has some text and only add the item if it does.
 
 ```Javascript
-addButton.addEventListener('click', ev => {
-  const InputElement = document.getElementById('new-item');
-  if(InputElement.value) { //<- this
-    addItem(InputElement.value);
+addBtn.addEventListener('click', ev => {
+  if(newItem.value) { //<- this
+    addItem(newItem.value);
   } //<- and this
 })
 ```
@@ -173,11 +185,10 @@ Try it. No more blank entries in our list. Great. But we still add the same valu
 So we clear the input by setting its value to `null` each time an item is successfully added to the list.
 
 ```Javascript
-addButton.addEventListener('click', ev => {
-  const InputElement = document.getElementById('new-item');
-  if(InputElement.value) {
-    addItem(InputElement.value);
-    InputElement.value = null; //<- this
+addBtn.addEventListener('click', ev => {
+  if(newItem.value) {
+    addItem(newItem.value);
+    newItem.value = null; //<- this
   }
 })
 ```
@@ -185,10 +196,13 @@ addButton.addEventListener('click', ev => {
 To clear the whole list we add an event listener to the clear button.
 
 ```Javascript
-clearButton.addEventListener('click', ev => {
+clearBtn.addEventListener('click', ev => {
   clearList();
 });
 ```
+
+Try it.
+We now have a very basic working list.
 
 ## Removing individual items
 
@@ -200,17 +214,17 @@ We need a way to select an individual item for removal. For this, we need a butt
 function addItem(item) {
   const itemElement = document.createElement('li');
   itemElement.textContent = item;
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'x';
-  itemElement.appendChild(deleteButton);
+  const deleteButton = document.createElement('button'); // <- new
+  deleteButton.textContent = 'x';                        // <- new
+  itemElement.appendChild(deleteButton);                 // <- new
   listElement.appendChild(itemElement);
 };
 ```
 
 We have created a new button for each element and appended it to the list item.
-When we add new items, they now also contain a button.
+When we add new items, they now also contain a button which we will use to delete the individual list item.
 
-We need this new button to delete the entire element. For this we use a closure.
+We need the new button to delete the entire `li` element. For this we use a closure.
 We add an event listener to each button which removes the parent element from the list.
 
 ```Javascript
@@ -220,12 +234,42 @@ function addItem(item) {
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'x';
   itemElement.appendChild(deleteButton);
-  deleteButton.addEventListener('click', ev => {
-    listElement.removeChild(itemElement);
-  });
+  deleteButton.addEventListener('click', ev => { // <- new
+    listElement.removeChild(itemElement);        // <- new
+  });                                            // <- new
   listElement.appendChild(itemElement);
 };
 ```
+
+The closure means that the event listener will always have a reference to `itemElement`.
+Even after the `addItem` function has completed, the scope it created, including the `const itemElement` is available to the `deleteButton` event listener.
+
+## Tidy up the look and feel
+
+At this point you may want to add some styles.
+Begin with something like this.
+
+```css
+body {
+  max-width: 500px;
+  margin: auto;
+}
+ul {
+  padding: 1em 0;
+  margin: 0;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+}
+
+```
+
+We position the body in the center of the page, overwrite the default `ul` padding and margin and justify the `<li>` element content using `display: flex` and `justify-content: space-between`.
+This will put the text on the left and the button on the right.
+
+Add a few more styles if you like.
+
 
 ## Saving the list
 
@@ -288,29 +332,29 @@ The following code adds a handler for the input element `keyup` event. The `keyu
 ```Javascript
 document.getElementById('new-item').addEventListener("keyup", ev => {
   if (ev.keyCode === 13) {
-    addButton.click();
+    addBtn.click();
   }
 });
 ```
 
-The handler is very simple. If the enter key (keyCode 13) is being released then we call `addButton.click()` to trigger the previously defined event handler for adding an item.
+The handler is very simple. If the enter key (keyCode 13) is being released then we call `addBtn.click()` to trigger the previously defined event handler for adding an item.
 
 So now it is possible to add multiple items to the list without leaving the keyboard.
 
 Another potential improvement is to allow comma-separated values to be entered into the input and separated out into items on the list.
 
-To do this we can adjust the `addButton` event listener.
+To do this we can adjust the `addBtn` event listener.
 
 ```Javascript
-addButton.addEventListener('click', ev => {
-  const InputElement = document.getElementById('new-item');
-  if(InputElement.value) {
-    InputElement.value.split(',').forEach(v => {
+addBtn.addEventListener('click', ev => {
+  const newItem = document.getElementById('new-item');
+  if(newItem.value) {
+    newItem.value.split(',').forEach(v => {
       if(v) {
         addItem(v);        
       }
     });
-    InputElement.value = null;
+    newItem.value = null;
   }
 });
 ```
@@ -377,3 +421,13 @@ Try refactoring the code to allow the user to create and manage multiple named l
 [textContent]: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent "Node.textContent - MDN"
 [onbeforeunload]: https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload "beforeunload event - MDN"
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event "DOMContentLoaded event - MDN"
+
+[ul]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul "The unordered list element - MDN"
+[li]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li "The list item element - MDN"
+[createElement]: https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement "document.CreateElement - MDN"
+[textContent]: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent "node.textContent - MDN"
+[appendChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild "node.appendChild - MDN"
+[forEach]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach "Array.prototype.forEach - MDN"
+[while] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while "while - MDN"
+[firstChild] https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild "Node.firstChild - MDN"
+[removeChild] https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild "Node.removeChild - MDN"

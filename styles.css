@@ -8,7 +8,7 @@ body {
   text-align: center;
   max-width: 500px;
   margin: auto;
-  background-color: #990;
+  background-color: #033;
   color: white;
 }
 
@@ -25,7 +25,6 @@ main {
   background-image: url('paper.jpg');
   background-size: 100%;
   box-shadow: 0 0 25px rgba(0,0,0,0.5);
-  padding: 1em;
 }
 
 ul {
@@ -33,17 +32,21 @@ ul {
   margin: 0;
 }
 
-main > header, ul li {
+ul li {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
 }
 
-input, ul li {
-  width: 100%;
-  border: none;
-  height: 40px;
+input {
   background-color: inherit;
+  border: none;
+
+}
+
+ul li {
+  width: 100%;
+  height: 40px;
   padding-left: 1em;
   line-height: 40px;
   font-size: 1em;
