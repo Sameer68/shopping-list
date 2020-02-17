@@ -425,7 +425,8 @@ Try refactoring the code to allow the user to create and manage multiple named l
 [textContent]: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent "node.textContent - MDN"
 [appendChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild "node.appendChild - MDN"
 [forEach]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach "Array.prototype.forEach - MDN"
-[while] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while "while - MDN"
-[firstChild] https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild "Node.firstChild - MDN"
-[removeChild] https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild "Node.removeChild - MDN"
-[spread] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax "spread syntax - MDN"
+
+[while]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while "while - MDN"
+[firstChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild "Node.firstChild - MDN"
+[removeChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild "Node.removeChild - MDN"
+[spread]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax "spread syntax - MDN"
