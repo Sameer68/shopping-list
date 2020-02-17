@@ -370,11 +370,13 @@ Now we have a working system we will protect all our code inside a self-executin
 
 This keeps all our variables cleanly outside of the global scope.
 
-## Challenges
+---
+
+# Challenges
 
 The shopping list app is now fairly functional. However, there are a few scenarios where it could be frustrating to work with and a few possible improvements.
 
-### Multiple tabs
+## Multiple tabs
 
 Think about what happens when the app is opened in two tabs simultaneously.
 
@@ -398,7 +400,7 @@ potential solutions:
  - work with the `storage` event?
 
 
-### Multiple lists
+## Multiple lists
 
 If you have got this far then well done. This one is for experts only as it requires some fairly serious adaptations to the code. Though perhaps not as much as you might think.
 
