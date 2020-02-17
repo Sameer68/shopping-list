@@ -275,7 +275,7 @@ Add a few more styles if you like.
 
 We now have a fairly functional shopping list app. The only problem is that if we close the page or reload it the list data is lost and we begin with a blank list each time.
 
-We will load the list from local storage on opening the page and save the list back to local storage on closing the page.
+We will load the list from [local storage][localStorage] on opening the page and save the list back to local storage on closing the page.
 
 First, we need to save the list to local storage.
 We do this in an event listener we add to the window event handler [`onbeforeunload`][onbeforeunload] event.
@@ -397,7 +397,7 @@ Try to implement an improvement to avoid this problem.
 potential solutions:
  - allow a manual load/save option?
  - warn the user before editing the local storage?
- - work with the `storage` event?
+ - work with the [`storage`][storageEvent] event?
 
 
 ## Multiple lists
@@ -443,3 +443,7 @@ Try refactoring the code to allow the user to create and manage multiple named l
 [removeChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild "Node.removeChild - MDN"
 
 [spread]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax "spread syntax - MDN"
+
+[localStorage]: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage "local storage - MDN"
+
+[storageEvent]: https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event "storage event - MDN"
