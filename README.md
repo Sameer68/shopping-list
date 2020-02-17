@@ -415,20 +415,31 @@ Try refactoring the code to allow the user to create and manage multiple named l
 [Array.prototype.map]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map "Array.prototype.map - MDN"
 
 [String.prototype.split]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split "String.prototype.split - MDN"
+
 [String.prototype.slice]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/slice "String.prototype.slice - MDN"
 
 [textContent]: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent "Node.textContent - MDN"
+
 [onbeforeunload]: https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload "beforeunload event - MDN"
+
 [DOMContentLoaded]: https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event "DOMContentLoaded event - MDN"
 
 [ul]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul "The unordered list element - MDN"
+
 [li]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li "The list item element - MDN"
+
 [createElement]: https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement "document.CreateElement - MDN"
+
 [textContent]: https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent "node.textContent - MDN"
+
 [appendChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild "node.appendChild - MDN"
+
 [forEach]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach "Array.prototype.forEach - MDN"
 
 [while]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while "while - MDN"
+
 [firstChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild "Node.firstChild - MDN"
+
 [removeChild]: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild "Node.removeChild - MDN"
+
 [spread]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax "spread syntax - MDN"
