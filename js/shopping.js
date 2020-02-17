@@ -33,14 +33,12 @@
 
   // Add button
   addBtn.addEventListener('click', ev => {
-    if(newInput.value) {
-      newInput.value.split(',').forEach(v => {
-        if(v) {
-          addItem(v);
-        }
-      });
-      newInput.value = null;
-    }
+    newInput.value.split(',').forEach(v => {
+      if(v) {
+        addItem(v);
+      }
+    });
+    newInput.value = null;
   });
 
   // submit on enter
