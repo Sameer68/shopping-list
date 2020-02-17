@@ -82,7 +82,7 @@ function clearList() {
 }
 ```
 
-Using a [`while` loop](while) we call [`Node.firstChild`](firstChild) to identify the next element and ['Node.removeChild'](removeChild) to remove each element in turn.
+Using a [`while` loop](while) we call [`Node.firstChild`](firstChild) to identify the next element and [`Node.removeChild`](removeChild) to remove each element in turn.
 
 Calling this function in the console now clears the list as expected.
 
