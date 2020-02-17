@@ -53,6 +53,9 @@ addItem('pasta');
 ```
 
 We can also add multiple items from an array using [`Array.prototype.forEach`][forEach].
+This is a method available on all arrays, it takes a callback function as an argument.
+Each item of the array is passed in turn as an argument into the callback function.
+
 
 ```Javascript
 const list = ['rice', 'pasta', 'tea', 'coffee'];
@@ -60,6 +63,11 @@ list.forEach(item => {
   addItem(item);
 });
 ```
+
+[`Array.prototype.forEach`][forEach] is useful for conducting arbitrary operations.
+The argument (`item` in this case, but any name is allowed) is set to the value of each element in turn.
+In this case, we simply call the `addItem` method with each item in the list.
+So `addItem` is called four times, once for each value.
 
 ## Clearing the list
 
