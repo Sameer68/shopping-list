@@ -13,6 +13,7 @@
     itemElement.appendChild(deleteButton);
     deleteButton.addEventListener('click', ev => {
       listElement.removeChild(itemElement);
+      save();
     });
     listElement.appendChild(itemElement);
   };
@@ -31,6 +32,25 @@
     }
   }
 
+  function save() {
+    const items = [...listElement.childNodes];
+    if(items.length) {
+      const list = items.map(item => {
+        return item.textContent.slice(0, -1);
+      });
+      localStorage.setItem('shopping-list', list);
+    } else {
+      localStorage.removeItem('shopping-list');
+    }
+  }
+
+  function load() {
+    const shoppingList = localStorage.getItem('shopping-list');
+    if(shoppingList) {
+      renderList(shoppingList.split(','));
+    }
+  }
+
   // Add button
   addBtn.addEventListener('click', ev => {
     newInput.value.split(',').forEach(v => {
@@ -39,6 +59,7 @@
       }
     });
     newInput.value = null;
+    save();
   });
 
   // submit on enter
@@ -54,24 +75,16 @@
   });
 
   // Saving data for later use
-  window.addEventListener('beforeunload', ev => {
-    const items = [...listElement.childNodes];
-    if(items.length) {
-      const list = items.map(item => {
-        return item.textContent.slice(0, -1);
-      });
-      localStorage.setItem('shopping-list', list);
-    } else {
-      localStorage.removeItem('shopping-list');
-    }
-  });
+  window.addEventListener('beforeunload', save);
 
   // Loading data from local storage
-  window.addEventListener('DOMContentLoaded', ev => {
-    const shoppingList = localStorage.getItem('shopping-list');
-    if(shoppingList) {
-      renderList(shoppingList.split(','));
+  window.addEventListener('DOMContentLoaded', load);
+
+  window.addEventListener('storage', ev => {
+    if(ev.key == "shopping-list") {
+      clearList();
+      load();
     }
-  });
+  })
 
 })();
