@@ -9,7 +9,7 @@
     const itemElement = document.createElement('li');
     itemElement.textContent = item;
     const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'x';
+    deleteButton.textContent = '✖';
     itemElement.appendChild(deleteButton);
     deleteButton.addEventListener('click', ev => {
       listElement.removeChild(itemElement);

@@ -30,3 +30,16 @@ li {
 li:first-child {
   border-top: 0.5px dashed white;
 }
+li button {
+  opacity: 0.1;
+  transition: 0.4s;
+  background: none;
+  border: none;
+  font-size: 1.0em;
+}
+li:hover button {
+  opacity: 0.4;
+}
+li button:hover {
+  opacity: 1;
+}
