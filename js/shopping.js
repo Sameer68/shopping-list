@@ -6,6 +6,7 @@
 
   // Add an item to the list
   function addItem(item) {
+    if(!item) return;
     const itemElement = document.createElement('li');
     itemElement.textContent = item;
     const deleteButton = document.createElement('button');
@@ -19,10 +20,8 @@
   };
 
   // populate the list from an array
-  function renderList(list) {
-    list.forEach(item => {
-      addItem(item);
-    });
+  function addList(list) {
+    list.forEach(addItem);
   }
 
   // Clear the list
@@ -47,17 +46,13 @@
   function load() {
     const shoppingList = localStorage.getItem('shopping-list');
     if(shoppingList) {
-      renderList(shoppingList.split(','));
+      addList(shoppingList.split(','));
     }
   }
 
   // Add button
   addBtn.addEventListener('click', ev => {
-    newInput.value.split(',').forEach(v => {
-      if(v) {
-        addItem(v);
-      }
-    });
+    addList(newInput.value.split(','));
     newInput.value = null;
     save();
   });
