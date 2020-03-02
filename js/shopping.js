@@ -67,6 +67,7 @@
   // Clear button
   clearBtn.addEventListener('click', ev => {
     clearList();
+    save();
   });
 
   // Saving data for later use
