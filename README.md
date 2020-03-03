@@ -339,13 +339,13 @@ The following code adds a handler for the input element `keyup` event. The `keyu
 
 ```Javascript
 newItem.addEventListener("keyup", ev => {
-  if (ev.keyCode === 13) {
+  if (ev.key === "Enter") {
     addBtn.click();
   }
 });
 ```
 
-The handler is very simple. If the enter key (keyCode 13) is being released then we call `addBtn.click()` to trigger the previously defined event handler for adding an item.
+The handler is very simple. If the enter key (the key identified as "Enter") is being released then we call `addBtn.click()` to trigger the previously defined event handler for adding an item.
 
 So now it is possible to add multiple items to the list without leaving the keyboard.
 

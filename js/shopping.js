@@ -59,7 +59,7 @@
 
   // submit on enter
   newInput.addEventListener("keyup", ev => {
-    if (ev.keyCode === 13) {
+    if (ev.key === "Enter") {
       addBtn.click();
     }
   });
