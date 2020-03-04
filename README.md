@@ -99,7 +99,7 @@ Finally, tidy up the whole lot by wrapping the list generation code in a reusabl
 
 ```Javascript
 function renderList(list) {
-  list.forEach(addItem(item));
+  list.forEach(addItem);
 }
 ```
 
