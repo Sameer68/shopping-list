@@ -59,6 +59,7 @@ This is a method available on all arrays, it takes a callback function as an arg
 Each item of the array is passed in turn as an argument into the callback function.
 This works perfectly for our situation as our `addItem` function takes a single string as its argument.
 
+Don't add this to your file. Try typing it into the developer console (F12).
 
 ```Javascript
 const list = ['rice', 'pasta', 'tea', 'coffee'];
