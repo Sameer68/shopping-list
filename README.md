@@ -62,7 +62,7 @@ This works perfectly for our situation as our `addItem` function takes a single 
 
 ```Javascript
 const list = ['rice', 'pasta', 'tea', 'coffee'];
-list.forEach(addItem(item));
+list.forEach(addItem);
 ```
 
 [`Array.prototype.forEach`][forEach] is useful for conducting arbitrary operations.
