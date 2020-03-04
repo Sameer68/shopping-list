@@ -1,3 +1,5 @@
+"use strict";
+
 (() => {
   const listElement = document.getElementById('shopping');
   const newInput = document.getElementById('newItem');
