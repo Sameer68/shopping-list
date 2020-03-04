@@ -45,7 +45,9 @@ function addItem(item) {
 The function uses [`document.createElement`][createElement] to create an [`li`][li] element.
 It places text in the element using [`node.textContent`][textContent] and finally inserts our new element into the DOM using [`node.appendChild`][appendChild].
 
-We can now add items by calling our function. Try this in the console.
+We can now add items by calling our function.
+
+Don't add this to your file. Try typing it into the developer console (F12).
 
 ```Javascript
 addItem('rice');
@@ -55,13 +57,12 @@ addItem('pasta');
 We can also add multiple items from an array using [`Array.prototype.forEach`][forEach].
 This is a method available on all arrays, it takes a callback function as an argument.
 Each item of the array is passed in turn as an argument into the callback function.
+This works perfectly for our situation as our `addItem` function takes a single string as its argument.
 
 
 ```Javascript
 const list = ['rice', 'pasta', 'tea', 'coffee'];
-list.forEach(item => {
-  addItem(item);
-});
+list.forEach(addItem(item));
 ```
 
 [`Array.prototype.forEach`][forEach] is useful for conducting arbitrary operations.
@@ -98,9 +99,7 @@ Finally, tidy up the whole lot by wrapping the list generation code in a reusabl
 
 ```Javascript
 function renderList(list) {
-  list.forEach(item => {
-    addItem(item);
-  });
+  list.forEach(addItem(item));
 }
 ```
 
